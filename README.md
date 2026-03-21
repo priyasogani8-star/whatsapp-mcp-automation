@@ -10,22 +10,26 @@ Connect your personal WhatsApp to Claude, Cursor, or Windsurf. Once set up, you 
 
 This repo adds **18 extra WhatsApp tools** to Claude that are not in the base setup: polls, animated reactions, stickers, status posts, events, live location, and group mentions.
 
+![WhatsApp + Claude in action](docs/images/example-use.png)
+
 ---
 
 ## What You Get
 
-| Feature | Included here | Base setup |
+| Feature | This repo | Base setup only |
 |---------|:---:|:---:|
-| Read and search messages | included (via lharries) | yes |
-| Send messages and files | included (via lharries) | yes |
-| Search contacts | included (via lharries) | yes |
-| Poll voting (single and multiple-choice) | yes | no |
-| Animated reactions (confetti, fireworks) | yes | no |
-| Sticker manager | yes | no |
-| Status updates with effects | yes | no |
-| Event planner with RSVP tracking | yes | no |
-| Live location sharing | yes | no |
-| Group mentions (@all, @role, @specific) | yes | no |
+| Read and search messages | ✅ (via lharries) | ✅ |
+| Send messages and files | ✅ (via lharries) | ✅ |
+| Search contacts | ✅ (via lharries) | ✅ |
+| Poll voting (single and multiple-choice) | ✅ | ❌ |
+| Animated reactions (confetti, fireworks) | ✅ | ⚠️ partial |
+| Sticker manager | ✅ | ❌ |
+| Status updates with effects | ✅ | ❌ |
+| Event planner with RSVP tracking | ✅ | ❌ |
+| Live location sharing | ✅ | ⚠️ basic only |
+| Group mentions (@all, @role, @specific) | ✅ | ❌ |
+| No Go install needed | ✅ | ❌ |
+| Pre-compiled Windows bridge | ✅ | ❌ |
 
 ---
 
@@ -106,7 +110,7 @@ Save the file and restart Claude.
 
 ---
 
-### Step 6 - Done
+### Step 6 - Done ✅
 
 In Claude, type: *"What WhatsApp tools do you have?"*
 
@@ -144,69 +148,77 @@ Go to Settings > MCP Servers > Add Server and fill in:
 
 ## The 18 Extra Tools
 
-### Polls
+### 🗳️ Polls
 
 > Like creating a poll on Instagram, but for WhatsApp
 
 Create a single-choice poll (pick one answer) or a multiple-choice poll (pick several). Votes can be changed. You can close a poll when you are done.
 
-Tools: `create_poll`, `vote_poll`, `change_vote`, `get_poll_results`, `list_polls`, `close_poll`
+**Single-choice** (pick exactly one):
+
+![Single-choice poll flow](docs/images/single-choice-flow.svg)
+
+**Multiple-choice** (pick several):
+
+![Multiple-choice poll flow](docs/images/multiple-choice-flow.svg)
+
+Tools: `create_poll` `vote_poll` `change_vote` `get_poll_results` `list_polls` `close_poll`
 
 ---
 
-### Animated Reactions
+### 😍 Animated Reactions
 
 > React to a message with confetti, fireworks, sparkles, or hearts
 
-Effect types: confetti, fireworks, sparkles, hearts, emoji, effect
+Effect types: `confetti` `fireworks` `sparkles` `hearts` `emoji` `effect`
 
-Tools: `add_reaction`, `get_message_reactions`
-
----
-
-### Stickers
-
-> Send stickers from packs (includes a 2026 New Year pack)
-
-Tools: `send_sticker`, `get_sticker_packs`
+Tools: `add_reaction` `get_message_reactions`
 
 ---
 
-### Status Updates
+### 🎨 Stickers
+
+> Send stickers from packs (includes a 2026 New Year pack built in)
+
+Tools: `send_sticker` `get_sticker_packs`
+
+---
+
+### 📸 Status Updates
 
 > Post text, image, video, gif, or animated status updates with visibility controls
 
-Visibility options: everyone, contacts only, close friends
+Visibility options: `everyone` `contacts only` `close friends`
 
 Tools: `create_status`
 
 ---
 
-### Events
+### 🎉 Events
 
 > Create a group event and track RSVPs, like Google Calendar inside WhatsApp
 
-RSVP options: accepted, declined, maybe, pending
+RSVP options: `accepted ✅` `declined ❌` `maybe 🤷` `pending ⏳`
 
-Tools: `create_event`, `rsvp_event`, `get_event_stats`
+Tools: `create_event` `rsvp_event` `get_event_stats`
 
 ---
 
-### Live Location
+### 📍 Live Location
 
 > Share your real-time location in a chat for 5 to 60 minutes
 
-Tools: `share_location`, `stop_location_share`
+Tools: `share_location` `stop_location_share`
 
 ---
 
-### Group Mentions
+### 📢 Group Mentions
 
 > Send a message that notifies specific people in a group
 
-Mention types: @all (everyone), @role (a named group), @specific (named individuals), @admin
+Mention types: `@all` (everyone) `@role` (a named group) `@specific` (named individuals) `@admin`
 
-Tools: `send_mention`, `create_group_role`
+Tools: `send_mention` `create_group_role`
 
 ---
 
@@ -224,37 +236,37 @@ combined-server.js                (joins the two tool sets together, 30 tools to
 
 This repo bundles two things together:
 
-1. The WhatsApp connection layer from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp) (MIT license) for reading and sending messages
-2. The extra automation tools in this repo for polls, reactions, events, and more
+1. ✅ The WhatsApp connection layer from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp) (MIT license) for reading and sending messages
+2. ✅ The extra automation tools in this repo for polls, reactions, events, and more
 
 ---
 
 ## Troubleshooting
 
-**The QR code window closed before I could scan it**
+**❓ The QR code window closed before I could scan it**
 
 Double-click `whatsapp-bridge-windows-x64.exe` again. A new QR code will appear.
 
-**Claude says it cannot find the WhatsApp tools**
+**❓ Claude says it cannot find the WhatsApp tools**
 
 Check that the path in your Claude config exactly matches where you put the folder. Use double backslashes in Windows paths (for example `C:\\Users\\You\\whatsapp\\combined-server.js`).
 
-**The bridge says "connection lost"**
+**❓ The bridge says "connection lost"**
 
 This is normal if your computer was asleep. Double-click the bridge exe again to reconnect. You will not need to scan the QR code again after the first time.
 
-**setup.bat says Node.js is not installed**
+**❓ setup.bat says Node.js is not installed**
 
 Download and install it from [nodejs.org](https://nodejs.org), then double-click setup.bat again.
 
 ---
 
-## Privacy and Security
+## Privacy and Security 🔒
 
-- All your messages are stored on your own computer only, in a local database
-- Nothing is sent to any external server (other than the AI app you are using)
-- The bridge connects directly to WhatsApp using the official multi-device API
-- No credentials or phone numbers are stored in this repo
+- ✅ All your messages are stored on your own computer only, in a local database
+- ✅ Nothing is sent to any external server (other than the AI app you are using)
+- ✅ The bridge connects directly to WhatsApp using the official multi-device API
+- ✅ No credentials or phone numbers are stored in this repo
 
 ---
 
