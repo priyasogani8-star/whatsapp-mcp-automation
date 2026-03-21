@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.28.0",
+    "@modelcontextprotocol/sdk": "^1.27.1",
     "better-sqlite3": "^9.2.0",
     "dotenv": "^16.4.0",
     "uuid": "^9.0.1"
@@ -36,7 +37,19 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": ["whatsapp", "mcp", "claude", "poll", "voting", "automation", "reactions", "stickers", "events", "location", "mentions"],
+  "keywords": [
+    "whatsapp",
+    "mcp",
+    "claude",
+    "poll",
+    "voting",
+    "automation",
+    "reactions",
+    "stickers",
+    "events",
+    "location",
+    "mentions"
+  ],
   "author": "priyasogani8-star",
   "license": "MIT",
   "repository": {

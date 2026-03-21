@@ -121,7 +121,7 @@ export class GroupMentions {
   /**
    * Get mention statistics
    */
-  async getStats(chatJid: string): Promise<MentionStats> {
+  getStats(chatJid: string): MentionStats {
     if (!this.mentionStats.has(chatJid)) {
       this.mentionStats.set(chatJid, {
         chatJid,

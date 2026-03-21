@@ -6,12 +6,12 @@
  * Add to claude_desktop_config.json or Claude Code settings
  */
 
-import { Server } from '@modelcontextprotocol/sdk/server/index.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
+// @ts-ignore
+import { Server } from '@modelcontextprotocol/sdk/dist/cjs/server/index';
+// @ts-ignore
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/dist/cjs/server/stdio';
+// @ts-ignore
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/dist/cjs/types';
 import * as path from 'path';
 
 import { PollHandler } from './handlers/pollHandler';
@@ -289,7 +289,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 
 // ─── CALL TOOLS ─────────────────────────────────────────────────────────────
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
+server.setRequestHandler(CallToolRequestSchema, async (request: { params: { name: string; arguments?: Record<string, unknown> } }) => {
   const { name, arguments: args } = request.params;
   try {
     switch (name) {
