@@ -326,7 +326,10 @@ whatsapp-mcp-automation/
 - No hardcoded credentials
 - Local SQLite storage — data never leaves your machine
 - MIT License — free to use and modify
+  
+## LEGAL DISCLAIMER
 
+- All extension is strictly intended for personal use and is not officially affiliated with, endorsed, or sponsored by WhatsApp or its parent companies.
 ---
 
 ## What's NOT included (honest limitations)
