@@ -4,8 +4,6 @@
 
 This is a **companion MCP tool package** that runs *alongside* `lharries/whatsapp-mcp`. It adds features that lharries doesn't support.
 
-![WhatsApp MCP in action](docs/images/example-use.png)
-
 ---
 
 ## What's in lharries/whatsapp-mcp vs This Repo
