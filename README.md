@@ -1,35 +1,32 @@
-# WhatsApp for Claude
+# WhatsApp MCP Automation
 
-Connect your personal WhatsApp to Claude, Cursor, or Windsurf. Once set up, you can type things like:
+> **7 powerful WhatsApp tools for Claude, Cursor, and Windsurf, with features missing from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp)**
 
-- "Create a poll in my family group: Where should we eat? Options: Pizza, Sushi, Burger"
-- "Send a fireworks reaction to the last message in my work chat"
-- "Post a status update: Off for the weekend!"
-- "@everyone in the team group: Stand-up at 10am"
-- "Create an event: Team Lunch, Friday 1pm, RSVPs open"
+This is a **companion MCP tool package** that runs *alongside* `lharries/whatsapp-mcp`. It adds features that lharries doesn't support.
 
-This repo adds **18 extra WhatsApp tools** to Claude that are not in the base setup: polls, animated reactions, stickers, status posts, events, live location, and group mentions.
-
-![WhatsApp + Claude in action](docs/images/example-use.png)
+![WhatsApp MCP in action](docs/images/example-use.png)
 
 ---
 
-## What You Get
+## What's in lharries/whatsapp-mcp vs This Repo
 
-| Feature | This repo | Base setup only |
+| Feature | lharries/whatsapp-mcp | This Repo |
 |---------|:---:|:---:|
-| Read and search messages | ✅ (via lharries) | ✅ |
-| Send messages and files | ✅ (via lharries) | ✅ |
-| Search contacts | ✅ (via lharries) | ✅ |
-| Poll voting (single and multiple-choice) | ✅ | ❌ |
-| Animated reactions (confetti, fireworks) | ✅ | ⚠️ partial |
-| Sticker manager | ✅ | ❌ |
-| Status updates with effects | ✅ | ❌ |
-| Event planner with RSVP tracking | ✅ | ❌ |
-| Live location sharing | ✅ | ⚠️ basic only |
-| Group mentions (@all, @role, @specific) | ✅ | ❌ |
-| No Go install needed | ✅ | ❌ |
-| Pre-compiled Windows bridge | ✅ | ❌ |
+| Search contacts | ✅ | - |
+| List chats | ✅ | - |
+| Read messages | ✅ | - |
+| Send messages | ✅ | - |
+| Send media/files | ✅ | - |
+| Download media | ✅ | - |
+| **Poll voting** (single and multiple-choice) | ❌ | ✅ |
+| **Animated reactions** (confetti, fireworks) | ⚠️ Partial | ✅ Enhanced |
+| **Sticker manager** (2026 packs) | ❌ | ✅ |
+| **Status creation** (with effects, scheduling) | ❌ | ✅ |
+| **Event planner** (RSVP tracking) | ❌ | ✅ |
+| **Live location** (real-time sharing) | ⚠️ Basic | ✅ Enhanced |
+| **Group mentions** (@all, @role, @specific) | ❌ | ✅ |
+| No Go install needed | ❌ | ✅ |
+| Pre-compiled Windows bridge | ❌ | ✅ |
 
 ---
 
