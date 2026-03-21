@@ -10,12 +10,12 @@ This is a **companion MCP tool package** that runs *alongside* `lharries/whatsap
 
 | Feature | lharries/whatsapp-mcp | This Repo |
 |---------|:---:|:---:|
-| Search contacts | ✅ | - |
-| List chats | ✅ | - |
-| Read messages | ✅ | - |
-| Send messages | ✅ | - |
-| Send media/files | ✅ | - |
-| Download media | ✅ | - |
+| Search contacts | ✅ | ✅ included |
+| List chats | ✅ | ✅ included |
+| Read messages | ✅ | ✅ included |
+| Send messages | ✅ | ✅ included |
+| Send media/files | ✅ | ✅ included |
+| Download media | ✅ | ✅ included |
 | **Poll voting** (single and multiple-choice) | ❌ | ✅ |
 | **Animated reactions** (confetti, fireworks) | ⚠️ Partial | ✅ Enhanced |
 | **Sticker manager** (2026 packs) | ❌ | ✅ |
