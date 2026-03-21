@@ -1,0 +1,17 @@
+{
+  "create_status": {
+    "userId": "user_1",
+    "type": "image",
+    "content": "https://example.com/sunset.jpg",
+    "caption": "Beautiful sunset 🌅",
+    "visibility": "contacts",
+    "effects": ["vintage-filter"]
+  },
+  "schedule_status": {
+    "userId": "user_1",
+    "type": "text",
+    "content": "Good morning! ☀️",
+    "visibility": "contacts",
+    "scheduleTime": "2026-03-22T08:00:00.000Z"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "description": "Multiple-Choice Poll Example - User can select 1-3 options",
+  "example": {
+    "type": "create_poll",
+    "pollType": "multiple",
+    "question": "What property types interest you?",
+    "minSelections": 1,
+    "maxSelections": 3,
+    "choices": [
+      {"id": "1bhk", "text": "1 BHK"},
+      {"id": "2bhk", "text": "2 BHK"},
+      {"id": "3bhk", "text": "3 BHK"},
+      {"id": "4bhk", "text": "4 BHK"},
+      {"id": "villa", "text": "Villa"}
+    ]
+  },
+
+  "vote_user1": {
+    "type": "vote_poll",
+    "pollId": "poll_xyz789",
+    "userId": "user_1",
+    "userPhone": "+91-9876543210",
+    "selectedChoices": ["1bhk", "2bhk"],
+    "explanation": "User selected 2 options (within limit of 1-3)"
+  },
+
+  "vote_user2": {
+    "type": "vote_poll",
+    "pollId": "poll_xyz789",
+    "userId": "user_2",
+    "userPhone": "+91-9876543211",
+    "selectedChoices": ["2bhk", "3bhk", "villa"],
+    "explanation": "User selected 3 options (at max limit)"
+  },
+
+  "change_vote_user1_add": {
+    "type": "change_vote",
+    "pollId": "poll_xyz789",
+    "userId": "user_1",
+    "newSelectedChoices": ["1bhk", "2bhk", "3bhk"],
+    "explanation": "User adds 3 BHK to their selection. Previous: [1BHK, 2BHK] → New: [1BHK, 2BHK, 3BHK]"
+  },
+
+  "change_vote_user1_remove": {
+    "type": "change_vote",
+    "pollId": "poll_xyz789",
+    "userId": "user_1",
+    "newSelectedChoices": ["2bhk", "3bhk"],
+    "explanation": "User removes 1 BHK from selection. Previous: [1BHK, 2BHK, 3BHK] → New: [2BHK, 3BHK]"
+  },
+
+  "expected_result": {
+    "pollId": "poll_xyz789",
+    "question": "What property types interest you?",
+    "pollType": "multiple",
+    "totalVotes": 2,
+    "totalParticipants": 2,
+    "choices": [
+      {"id": "1bhk", "text": "1 BHK", "voteCount": 0, "percentage": 0},
+      {"id": "2bhk", "text": "2 BHK", "voteCount": 2, "percentage": 100},
+      {"id": "3bhk", "text": "3 BHK", "voteCount": 2, "percentage": 100},
+      {"id": "4bhk", "text": "4 BHK", "voteCount": 0, "percentage": 0},
+      {"id": "villa", "text": "Villa", "voteCount": 1, "percentage": 50}
+    ],
+    "mostSelected": "2bhk",
+    "leastSelected": "1bhk",
+    "explanation": "User1 final vote: [2BHK, 3BHK], User2 vote: [2BHK, 3BHK, Villa]. Result: 2BHK and 3BHK both got 2 votes (100%), Villa got 1 vote (50%), 1BHK and 4BHK got 0 votes."
+  }
+}

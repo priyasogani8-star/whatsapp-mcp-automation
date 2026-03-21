@@ -1,0 +1,13 @@
+{
+  "share_location": {
+    "userId": "user_1",
+    "chatJid": "group@g.us",
+    "coordinates": { "latitude": 28.5355, "longitude": 77.3910, "accuracy": 10 },
+    "duration": 30,
+    "address": "Noida Sector 62"
+  },
+  "update_location": {
+    "locationId": "share_xyz",
+    "coordinates": { "latitude": 28.5400, "longitude": 77.3950, "accuracy": 8 }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "mention_all": {
+    "chatJid": "group@g.us",
+    "userId": "user_1",
+    "message": "Important: Meeting at 3 PM!",
+    "mentionType": "all",
+    "notificationLevel": "high"
+  },
+  "mention_role": {
+    "chatJid": "group@g.us",
+    "userId": "user_1",
+    "message": "Team leads, please review.",
+    "mentionType": "role",
+    "targetRole": "Team Leads"
+  }
+}

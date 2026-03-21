@@ -1,0 +1,54 @@
+{
+  "description": "Single-Choice Poll Example - Exactly 1 vote per user",
+  "example1": {
+    "type": "create_poll",
+    "pollType": "single",
+    "question": "Where should we have lunch?",
+    "choices": [
+      {"id": "pizza", "text": "🍕 Pizza Place"},
+      {"id": "sushi", "text": "🍣 Sushi Bar"},
+      {"id": "burger", "text": "🍔 Burger King"},
+      {"id": "chinese", "text": "🥢 Chinese Restaurant"}
+    ]
+  },
+  
+  "vote_user1": {
+    "type": "vote_poll",
+    "pollId": "poll_abc123",
+    "userId": "user_1",
+    "userPhone": "+91-9876543210",
+    "selectedChoices": ["pizza"]
+  },
+
+  "vote_user2": {
+    "type": "vote_poll",
+    "pollId": "poll_abc123",
+    "userId": "user_2",
+    "userPhone": "+91-9876543211",
+    "selectedChoices": ["sushi"]
+  },
+
+  "change_vote_user1": {
+    "type": "change_vote",
+    "pollId": "poll_abc123",
+    "userId": "user_1",
+    "newSelectedChoices": ["sushi"],
+    "explanation": "User changes vote from Pizza to Sushi. Pizza vote is REMOVED."
+  },
+
+  "expected_result": {
+    "pollId": "poll_abc123",
+    "question": "Where should we have lunch?",
+    "pollType": "single",
+    "totalVotes": 2,
+    "choices": [
+      {"id": "pizza", "text": "🍕 Pizza Place", "voteCount": 0, "percentage": 0},
+      {"id": "sushi", "text": "🍣 Sushi Bar", "voteCount": 2, "percentage": 100},
+      {"id": "burger", "text": "🍔 Burger King", "voteCount": 0, "percentage": 0},
+      {"id": "chinese", "text": "🥢 Chinese Restaurant", "voteCount": 0, "percentage": 0}
+    ],
+    "mostSelected": "sushi",
+    "leastSelected": "pizza",
+    "explanation": "2 users voted for Sushi (100%). Pizza has 0 votes because user_1 changed their vote."
+  }
+}

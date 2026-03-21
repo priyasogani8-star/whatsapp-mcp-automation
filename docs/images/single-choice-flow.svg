@@ -1,0 +1,77 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define arrow markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="300" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#1f2937">
+    Single-Choice Poll (Pick 1 Only)
+  </text>
+
+  <!-- Step 1: Create Poll -->
+  <rect x="50" y="60" width="160" height="60" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="130" y="85" font-size="14" font-weight="bold" text-anchor="middle" fill="#1e40af">Step 1</text>
+  <text x="130" y="105" font-size="12" text-anchor="middle" fill="#1e40af">Create Poll</text>
+  <text x="130" y="118" font-size="11" text-anchor="middle" fill="#64748b">"Pick Restaurant"</text>
+
+  <!-- Arrow 1 -->
+  <line x1="210" y1="90" x2="280" y2="90" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 2: Show Options -->
+  <rect x="280" y="60" width="160" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="360" y="85" font-size="14" font-weight="bold" text-anchor="middle" fill="#d97706">Step 2</text>
+  <text x="360" y="105" font-size="12" text-anchor="middle" fill="#d97706">Show Options</text>
+  <text x="360" y="118" font-size="11" text-anchor="middle" fill="#64748b">Pizza • Sushi • Burger</text>
+
+  <!-- Arrow 2 -->
+  <line x1="440" y1="90" x2="510" y2="90" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 3: User Votes -->
+  <rect x="510" y="60" width="80" height="60" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="550" y="85" font-size="14" font-weight="bold" text-anchor="middle" fill="#15803d">Step 3</text>
+  <text x="550" y="105" font-size="11" text-anchor="middle" fill="#15803d">User Picks 1</text>
+
+  <!-- Arrow DOWN to Change Vote section -->
+  <line x1="550" y1="120" x2="550" y2="160" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Change Vote Section Title -->
+  <rect x="350" y="170" width="400" height="30" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="550" y="192" font-size="13" font-weight="bold" text-anchor="middle" fill="#374151">
+    Vote Change (Optional)
+  </text>
+
+  <!-- OLD Vote Box -->
+  <rect x="50" y="230" width="140" height="100" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="120" y="255" font-size="12" font-weight="bold" text-anchor="middle" fill="#b91c1c">BEFORE</text>
+  <text x="120" y="272" font-size="11" text-anchor="middle" fill="#1f2937">User Vote:</text>
+  <text x="120" y="288" font-size="13" font-weight="bold" text-anchor="middle" fill="#b91c1c">🍕 Pizza</text>
+  <text x="120" y="305" font-size="10" text-anchor="middle" fill="#64748b">(Selected)</text>
+  <text x="120" y="325" font-size="11" text-anchor="middle" fill="#7f1d1d">Vote Count: 1</text>
+
+  <!-- Arrow showing change -->
+  <line x1="190" y1="280" x2="270" y2="280" stroke="#dc2626" stroke-width="3" marker-end="url(#arrowhead-red)"/>
+  <text x="230" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#dc2626">CHANGE TO</text>
+
+  <!-- NEW Vote Box -->
+  <rect x="280" y="230" width="140" height="100" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="350" y="255" font-size="12" font-weight="bold" text-anchor="middle" fill="#15803d">AFTER</text>
+  <text x="350" y="272" font-size="11" text-anchor="middle" fill="#1f2937">User Vote:</text>
+  <text x="350" y="288" font-size="13" font-weight="bold" text-anchor="middle" fill="#15803d">🍣 Sushi</text>
+  <text x="350" y="305" font-size="10" text-anchor="middle" fill="#64748b">(Selected)</text>
+  <text x="350" y="325" font-size="11" text-anchor="middle" fill="#166534">Vote Count: 1</text>
+
+  <!-- Result Box -->
+  <rect x="470" y="230" width="120" height="100" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="530" y="255" font-size="12" font-weight="bold" text-anchor="middle" fill="#1e40af">RESULT</text>
+  <line x1="480" y1="265" x2="580" y2="265" stroke="#2563eb" stroke-width="1"/>
+  <text x="530" y="280" font-size="10" text-anchor="middle" fill="#1f2937">🍕 Pizza: 0</text>
+  <text x="530" y="295" font-size="10" text-anchor="middle" fill="#1f2937">🍣 Sushi: 1</text>
+  <text x="530" y="310" font-size="10" text-anchor="middle" fill="#1f2937">🍔 Burger: 0</text>
+  <text x="530" y="325" font-size="10" font-weight="bold" text-anchor="middle" fill="#16a34a">✓ Valid</text>
+</svg>

@@ -1,0 +1,21 @@
+{
+  "add_reaction": {
+    "messageId": "msg_123",
+    "userId": "user_1",
+    "chatJid": "group@g.us",
+    "emoji": "🎉",
+    "effectType": "confetti",
+    "intensity": "heavy"
+  },
+  "remove_reaction": {
+    "messageId": "msg_123",
+    "userId": "user_1"
+  },
+  "expected_result": {
+    "messageId": "msg_123",
+    "totalReactions": 1,
+    "reactions": [
+      { "emoji": "🎉", "count": 1, "users": ["user_1"] }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "create_event": {
+    "title": "Team Lunch",
+    "description": "Monthly team lunch",
+    "startTime": "2026-03-25T12:00:00.000Z",
+    "endTime": "2026-03-25T14:00:00.000Z",
+    "location": "Pizza Place",
+    "creator": "user_1",
+    "chatJid": "group@g.us",
+    "invitees": ["user_2", "user_3"],
+    "remindBefore": 60
+  },
+  "rsvp": {
+    "eventId": "evt_xyz",
+    "userId": "user_2",
+    "rsvpStatus": "accepted"
+  }
+}

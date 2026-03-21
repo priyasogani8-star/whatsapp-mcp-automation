@@ -1,0 +1,14 @@
+{
+  "send_sticker": {
+    "chatJid": "group@g.us",
+    "stickerId": "confetti-pop-id",
+    "packId": "new-year-2026-pack-id"
+  },
+  "create_custom_pack": {
+    "userId": "user_1",
+    "name": "My Pack",
+    "stickers": [
+      { "id": "s1", "name": "Happy", "emoji": "😊" }
+    ]
+  }
+}
