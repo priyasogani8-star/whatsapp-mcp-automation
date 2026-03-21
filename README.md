@@ -1,346 +1,270 @@
-# WhatsApp MCP Automation
+# WhatsApp for Claude
 
-> **7 powerful WhatsApp tools for Claude, Cursor, and Windsurf — features missing from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp)**
+Connect your personal WhatsApp to Claude, Cursor, or Windsurf. Once set up, you can type things like:
 
-This is a **companion MCP tool package** that runs *alongside* `lharries/whatsapp-mcp`. It adds features that lharries doesn't support.
+- "Create a poll in my family group: Where should we eat? Options: Pizza, Sushi, Burger"
+- "Send a fireworks reaction to the last message in my work chat"
+- "Post a status update: Off for the weekend!"
+- "@everyone in the team group: Stand-up at 10am"
+- "Create an event: Team Lunch, Friday 1pm, RSVPs open"
 
----
-
-## What's in lharries/whatsapp-mcp vs This Repo
-
-| Feature | lharries/whatsapp-mcp | This Repo |
-|---------|----------------------|-----------|
-| Search contacts | ✅ | — |
-| List chats | ✅ | — |
-| Read messages | ✅ | — |
-| Send messages | ✅ | — |
-| Send media/files | ✅ | — |
-| Download media | ✅ | — |
-| **Poll voting** (single & multiple-choice) | ❌ | ✅ |
-| **Animated reactions** (confetti, fireworks) | ⚠️ Partial | ✅ Enhanced |
-| **Sticker manager** (2026 packs) | ❌ | ✅ |
-| **Status creation** (with effects, scheduling) | ❌ | ✅ |
-| **Event planner** (RSVP tracking) | ❌ | ✅ |
-| **Live location** (real-time sharing) | ⚠️ Basic | ✅ Enhanced |
-| **Group mentions** (@all, @role, @specific) | ❌ | ✅ |
+This repo adds **18 extra WhatsApp tools** to Claude that are not in the base setup: polls, animated reactions, stickers, status posts, events, live location, and group mentions.
 
 ---
 
-## The 7 Tools — Explained Simply
+## What You Get
 
-### 🗳️ 1. Poll Voting
-> *Like creating a poll on Instagram, but for WhatsApp*
-
-**Single-choice** — pick exactly one option:
-```
-"Where should we eat?" → Pizza / Sushi / Burger
-You pick: Pizza ✓  (can change your mind later)
-```
-
-**Multiple-choice** — pick several options:
-```
-"What properties interest you?" → 1BHK / 2BHK / 3BHK / Villa
-You pick: 1BHK + 2BHK (can add/remove later)
-```
-
-**MCP tools:** `create_poll` · `vote_poll` · `change_vote` · `get_poll_results` · `list_polls` · `close_poll`
+| Feature | Included here | Base setup |
+|---------|:---:|:---:|
+| Read and search messages | included (via lharries) | yes |
+| Send messages and files | included (via lharries) | yes |
+| Search contacts | included (via lharries) | yes |
+| Poll voting (single and multiple-choice) | yes | no |
+| Animated reactions (confetti, fireworks) | yes | no |
+| Sticker manager | yes | no |
+| Status updates with effects | yes | no |
+| Event planner with RSVP tracking | yes | no |
+| Live location sharing | yes | no |
+| Group mentions (@all, @role, @specific) | yes | no |
 
 ---
 
-### 😍 2. Animated Reactions
-> *React to a message with more than just a thumbs up — add confetti, fireworks, sparkles*
+## Quick Install (Windows)
 
-```
-Message: "Happy birthday! 🎂"
-→ User 1 reacts: 🎉 with confetti animation (heavy)
-→ User 2 reacts: ❤️ with hearts animation
-```
+> No coding needed. Just follow the steps below.
 
-**Effect types:** `confetti` · `fireworks` · `sparkles` · `hearts` · `emoji` · `effect`
+### Before You Start
 
-**MCP tools:** `add_reaction` · `get_message_reactions`
+You need two free programs installed. Click each link, download, and run the installer:
 
----
-
-### 🎨 3. Sticker Manager
-> *Send stickers from packs — comes with a 2026 New Year pack built in*
-
-**Pre-installed packs:**
-- 🎉 2026 New Year Vibes (Confetti Pop, Fireworks, Party Sparkles)
-
-**Can also:** create custom packs, add to favorites, track usage stats
-
-**MCP tools:** `send_sticker` · `get_sticker_packs`
+1. **Node.js** - [Download from nodejs.org](https://nodejs.org) - click the big green "LTS" button
+2. **Python uv** - Open Start Menu, search for "cmd", open it, paste this and press Enter:
+   ```
+   winget install --id=astral-sh.uv -e
+   ```
+   Then close the terminal window.
 
 ---
 
-### 📸 4. Status Tools
-> *Post WhatsApp status updates with effects, scheduling, and view tracking*
+### Step 1 - Download this repo
 
-```
-Post: Sunset photo + vintage filter + star stickers
-Visibility: Contacts only
-Schedule: Tomorrow 8 AM
-→ Tracks: 150 views, 45 reactions, 12 saves
-```
+Click the green **Code** button at the top of this page, then click **Download ZIP**.
 
-**Status types:** `text` · `image` · `video` · `gif` · `animated`
-
-**MCP tools:** `create_status`
+Unzip it anywhere you like (for example: `C:\WhatsApp-Claude\`).
 
 ---
 
-### 🎉 5. Event Planner
-> *Create group events and track who is coming — like Google Calendar inside WhatsApp*
+### Step 2 - Download the WhatsApp bridge
 
-```
-Event: "Team Lunch" | March 25, 12–2 PM | Pizza Place
-Invite: 20 people → 15 accepted, 2 declined, 2 maybe, 1 pending
-Reminders: 1 day before + 1 hour before
-```
+The bridge is what connects Claude to your WhatsApp account. It runs in the background.
 
-**RSVP options:** `accepted` ✅ · `declined` ❌ · `maybe` 🤷 · `pending` ⏳
+[![Download WhatsApp Bridge for Windows](https://img.shields.io/badge/Download-WhatsApp_Bridge_for_Windows-25D366?style=for-the-badge&logo=whatsapp)](https://github.com/priyasogani8-star/whatsapp-mcp-automation/releases/latest/download/whatsapp-bridge-windows-x64.exe)
 
-**MCP tools:** `create_event` · `rsvp_event` · `get_event_stats`
+Save `whatsapp-bridge-windows-x64.exe` into the same folder where you unzipped this repo.
 
 ---
 
-### 📍 6. Live Location Tracker
-> *Share your location in a chat for 5–60 minutes, update it in real time*
+### Step 3 - Run the setup
 
-```
-Share location for 30 min → group sees where you are
-Update every few minutes as you move
-Stop sharing anytime
-```
+Open the folder where you unzipped everything. Double-click **`setup.bat`**.
 
-**MCP tools:** `share_location` · `stop_location_share`
+It will install the required packages automatically. When it finishes, you will see a success message.
 
 ---
 
-### 📢 7. Group Mentions
-> *Send important messages that notify specific people — @all, @role, or @specific*
+### Step 4 - Start the bridge and scan the QR code
 
-```
-@all → notifies everyone
-@role "Team Leads" → notifies only team leads
-@specific user_2 user_3 → notifies just those two
-```
+Double-click **`whatsapp-bridge-windows-x64.exe`**.
 
-**MCP tools:** `send_mention` · `create_group_role`
+A QR code will appear in the window. Open WhatsApp on your phone:
 
----
+- iPhone: Settings > Linked Devices > Link a Device
+- Android: Menu (three dots) > Linked Devices > Link a Device
 
-## Architecture
-
-```
-┌──────────────────────────────────────────────┐
-│       Claude / Cursor / Windsurf              │
-└────────────┬────────────────┬────────────────┘
-             │                │
-   ┌──────────▼──────┐  ┌─────▼──────────────────┐
-   │ lharries/       │  │ whatsapp-mcp-automation │
-   │ whatsapp-mcp    │  │ (THIS REPO)             │
-   │                 │  │                         │
-   │ • Read msgs     │  │ • Poll Voting     🗳️   │
-   │ • Send msgs     │  │ • Reactions       😍   │
-   │ • Contacts      │  │ • Stickers        🎨   │
-   │ • Media         │  │ • Status Tools    📸   │
-   └─────────────────┘  │ • Event Planner   🎉   │
-                        │ • Live Location   📍   │
-                        │ • Group Mentions  📢   │
-                        └─────────────────────────┘
-```
-
-Both run as **separate MCP servers simultaneously** in your AI agent.
+Scan the QR code. The window will show "Connected" and you can minimise it. You only need to scan once. After that it reconnects automatically.
 
 ---
 
-## Installation
+### Step 5 - Connect to Claude
 
-### Step 1: Prerequisites
+Open Claude Desktop. Go to **Settings > Developer > Edit Config**.
 
-- Node.js 18+
-- [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp) already set up (for WhatsApp connection)
-
-### Step 2: Clone and Install
-
-```bash
-git clone https://github.com/priyasogani8-star/whatsapp-mcp-automation.git
-cd whatsapp-mcp-automation
-npm install
-npm run build
-```
-
-### Step 3: Configure Your AI Agent
-
----
-
-#### Claude Code (Claude Code CLI)
-
-Edit `~/.claude/settings.json` (or local `.claude/settings.json`):
+Add the following inside the `mcpServers` section. Replace `C:\WhatsApp-Claude` with your actual folder path:
 
 ```json
 {
   "mcpServers": {
-    "whatsapp-automation": {
+    "whatsapp": {
       "command": "node",
-      "args": ["/full/path/to/whatsapp-mcp-automation/dist/server.js"],
-      "env": {
-        "WHATSAPP_DATA_DIR": "~/.whatsapp-mcp"
-      }
+      "args": ["C:\\WhatsApp-Claude\\whatsapp-mcp-automation-main\\combined-server.js"]
     }
   }
 }
 ```
 
-Then restart Claude Code. Ask: *"Create a poll: Where should we eat? Options: Pizza, Sushi, Burger"*
+Save the file and restart Claude.
 
 ---
 
-#### Claude Desktop
+### Step 6 - Done
 
-Edit `~/.claude/claude_desktop_config.json`:
+In Claude, type: *"What WhatsApp tools do you have?"*
 
-```json
-{
-  "mcpServers": {
-    "whatsapp-automation": {
-      "command": "node",
-      "args": ["/full/path/to/whatsapp-mcp-automation/dist/server.js"],
-      "env": {
-        "WHATSAPP_DATA_DIR": "~/.whatsapp-mcp"
-      }
-    }
-  }
-}
-```
-
-Restart Claude Desktop. The 18 tools will appear in your tools panel.
+Claude will list all 30 available tools. You are ready to go.
 
 ---
 
-#### Cursor IDE
+## Connect to Other AI Apps
 
-1. Press `Ctrl+Shift+P` → `Preferences: Open Settings (JSON)`
-2. Add:
+### Cursor IDE
+
+Press `Ctrl+Shift+P`, search for "Open User Settings JSON", and add:
 
 ```json
 {
   "cursor.mcp.servers": {
-    "whatsapp-automation": {
+    "whatsapp": {
       "command": "node",
-      "args": ["/full/path/to/whatsapp-mcp-automation/dist/server.js"]
+      "args": ["C:\\WhatsApp-Claude\\whatsapp-mcp-automation-main\\combined-server.js"]
     }
   }
 }
 ```
 
-3. Restart Cursor. Type `@whatsapp-automation create a poll...`
+Restart Cursor.
+
+### Windsurf
+
+Go to Settings > MCP Servers > Add Server and fill in:
+
+- Command: `node`
+- Args: `C:\WhatsApp-Claude\whatsapp-mcp-automation-main\combined-server.js`
 
 ---
 
-#### Windsurf (Codeium)
+## The 18 Extra Tools
 
-Open Settings → MCP Servers → Add Server:
+### Polls
 
-```json
-{
-  "name": "whatsapp-automation",
-  "command": "node",
-  "args": ["/full/path/to/whatsapp-mcp-automation/dist/server.js"]
-}
-```
+> Like creating a poll on Instagram, but for WhatsApp
 
-Multiple agents can run polls in parallel using Windsurf's multi-agent mode.
+Create a single-choice poll (pick one answer) or a multiple-choice poll (pick several). Votes can be changed. You can close a poll when you are done.
+
+Tools: `create_poll`, `vote_poll`, `change_vote`, `get_poll_results`, `list_polls`, `close_poll`
 
 ---
 
-## 18 MCP Tools Reference
+### Animated Reactions
 
-| Tool | What it does |
-|------|-------------|
-| `create_poll` | Create single or multiple-choice poll |
-| `vote_poll` | Cast a vote |
-| `change_vote` | Change an existing vote |
-| `get_poll_results` | Get vote counts and percentages |
-| `list_polls` | List active polls |
-| `close_poll` | Close poll to new votes |
-| `add_reaction` | Add animated reaction to message |
-| `get_message_reactions` | See all reactions on a message |
-| `send_sticker` | Send sticker to chat |
-| `get_sticker_packs` | List available packs |
-| `create_status` | Post status update |
-| `create_event` | Create group event |
-| `rsvp_event` | Respond to event invite |
-| `get_event_stats` | Get attendance stats |
-| `share_location` | Start live location sharing |
-| `stop_location_share` | Stop sharing location |
-| `send_mention` | Send @all, @role, or @specific mention |
-| `create_group_role` | Create named role for targeting |
+> React to a message with confetti, fireworks, sparkles, or hearts
+
+Effect types: confetti, fireworks, sparkles, hearts, emoji, effect
+
+Tools: `add_reaction`, `get_message_reactions`
 
 ---
 
-## Running Tests
+### Stickers
 
-```bash
-npm test
-```
+> Send stickers from packs (includes a 2026 New Year pack)
 
-Expected output:
-```
-PASS  tests/testRunner.ts (polls — 23 tests)
-PASS  tests/allFeatures.test.ts (all features — 18 tests)
-Tests: 41 passed
-```
+Tools: `send_sticker`, `get_sticker_packs`
 
 ---
 
-## Project Structure
+### Status Updates
 
-```
-whatsapp-mcp-automation/
-├── src/
-│   ├── server.ts              ← MCP server entry point
-│   ├── index.ts               ← Library exports
-│   ├── handlers/              ← 7 feature handlers
-│   ├── types/                 ← TypeScript types
-│   ├── validators/            ← Input validation + XSS protection
-│   └── storage/               ← SQLite database layer
-├── tests/
-│   ├── testRunner.ts          ← Poll voting tests (23 tests)
-│   └── allFeatures.test.ts    ← All 7 features tests
-├── docs/                      ← Guides for each feature
-├── examples/                  ← Example JSON for each tool
-├── package.json
-├── tsconfig.json
-└── jest.config.js
-```
+> Post text, image, video, gif, or animated status updates with visibility controls
+
+Visibility options: everyone, contacts only, close friends
+
+Tools: `create_status`
 
 ---
 
-## Security
+### Events
 
-- All inputs sanitized (XSS prevention)
-- Parameterized SQL queries (no injection)
-- No hardcoded credentials
-- Local SQLite storage — data never leaves your machine
-- MIT License — free to use and modify
-  
-## LEGAL DISCLAIMER
+> Create a group event and track RSVPs, like Google Calendar inside WhatsApp
 
-- All extension is strictly intended for personal use and is not officially affiliated with, endorsed, or sponsored by WhatsApp or its parent companies.
+RSVP options: accepted, declined, maybe, pending
+
+Tools: `create_event`, `rsvp_event`, `get_event_stats`
+
 ---
 
-## What's NOT included (honest limitations)
+### Live Location
 
-- **No WhatsApp connection layer** — this repo handles logic only; actual WhatsApp messaging requires `lharries/whatsapp-mcp` (Go + whatsmeow)
-- **Video call effects** — framework only, no live call integration
-- **Voice/video notes** — framework only, no audio processing
+> Share your real-time location in a chat for 5 to 60 minutes
+
+Tools: `share_location`, `stop_location_share`
+
+---
+
+### Group Mentions
+
+> Send a message that notifies specific people in a group
+
+Mention types: @all (everyone), @role (a named group), @specific (named individuals), @admin
+
+Tools: `send_mention`, `create_group_role`
+
+---
+
+## How It Works
+
+```
+Your WhatsApp Phone
+       |
+whatsapp-bridge-windows-x64.exe   (runs in background, handles the WhatsApp connection)
+       |
+combined-server.js                (joins the two tool sets together, 30 tools total)
+       |
+   Claude / Cursor / Windsurf
+```
+
+This repo bundles two things together:
+
+1. The WhatsApp connection layer from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp) (MIT license) for reading and sending messages
+2. The extra automation tools in this repo for polls, reactions, events, and more
+
+---
+
+## Troubleshooting
+
+**The QR code window closed before I could scan it**
+
+Double-click `whatsapp-bridge-windows-x64.exe` again. A new QR code will appear.
+
+**Claude says it cannot find the WhatsApp tools**
+
+Check that the path in your Claude config exactly matches where you put the folder. Use double backslashes in Windows paths (for example `C:\\Users\\You\\whatsapp\\combined-server.js`).
+
+**The bridge says "connection lost"**
+
+This is normal if your computer was asleep. Double-click the bridge exe again to reconnect. You will not need to scan the QR code again after the first time.
+
+**setup.bat says Node.js is not installed**
+
+Download and install it from [nodejs.org](https://nodejs.org), then double-click setup.bat again.
+
+---
+
+## Privacy and Security
+
+- All your messages are stored on your own computer only, in a local database
+- Nothing is sent to any external server (other than the AI app you are using)
+- The bridge connects directly to WhatsApp using the official multi-device API
+- No credentials or phone numbers are stored in this repo
+
+---
+
+## Legal Disclaimer
+
+This project is for personal use only. It is not affiliated with, endorsed by, or sponsored by WhatsApp, Meta, or their parent companies.
 
 ---
 
 ## Credits
 
-- Extends [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp) for the WhatsApp connection layer
-- Built for Claude Code, Claude Desktop, Cursor, and Windsurf
+- WhatsApp connection layer by [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp) (MIT License)
+- Extra automation tools by [priyasogani8-star](https://github.com/priyasogani8-star) (MIT License)

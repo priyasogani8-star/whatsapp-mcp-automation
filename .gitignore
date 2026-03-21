@@ -80,7 +80,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
@@ -137,3 +136,11 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# WhatsApp session data and synced messages - never commit these
+whatsapp-mcp-server/__pycache__/
+whatsapp-mcp-server/*.db
+.data/
+*.db
+*.db-shm
+*.db-wal

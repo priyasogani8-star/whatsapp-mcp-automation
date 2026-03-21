@@ -6,12 +6,12 @@
  * Add to claude_desktop_config.json or Claude Code settings
  */
 
+// @ts-ignore - absolute paths bypass Node.js 24 exports map resolution bug
+import { Server } from '../node_modules/@modelcontextprotocol/sdk/dist/cjs/server/index.js';
 // @ts-ignore
-import { Server } from '@modelcontextprotocol/sdk/dist/cjs/server/index';
+import { StdioServerTransport } from '../node_modules/@modelcontextprotocol/sdk/dist/cjs/server/stdio.js';
 // @ts-ignore
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/dist/cjs/server/stdio';
-// @ts-ignore
-import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/dist/cjs/types';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '../node_modules/@modelcontextprotocol/sdk/dist/cjs/types.js';
 import * as path from 'path';
 
 import { PollHandler } from './handlers/pollHandler';

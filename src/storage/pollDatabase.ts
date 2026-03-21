@@ -31,7 +31,7 @@ export class PollDatabase {
         expiresAt DATETIME,
         createdBy TEXT,
         groupJid TEXT,
-        status TEXT NOT NULL CHECK(status IN ('active', 'closed')) DEFAULT 'active',
+        status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active', 'closed')),
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       );
 
@@ -44,9 +44,9 @@ export class PollDatabase {
         pollType TEXT NOT NULL,
         votedAt DATETIME NOT NULL,
         updatedAt DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         UNIQUE(pollId, userId),
-        FOREIGN KEY(pollId) REFERENCES polls(id),
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        FOREIGN KEY(pollId) REFERENCES polls(id)
       );
 
       CREATE TABLE IF NOT EXISTS vote_change_history (
@@ -57,8 +57,8 @@ export class PollDatabase {
         newVotes JSON NOT NULL,
         changedAt DATETIME NOT NULL,
         changeReason TEXT,
-        FOREIGN KEY(pollId) REFERENCES polls(id),
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY(pollId) REFERENCES polls(id)
       );
 
       CREATE INDEX IF NOT EXISTS idx_votes_poll ON votes(pollId);
