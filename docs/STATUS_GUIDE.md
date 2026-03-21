@@ -3,16 +3,16 @@
 Create animated WhatsApp status updates with effects and scheduling.
 
 ## Status Types
-- `text` — Text-only status
-- `image` — Image with optional caption
-- `video` — Video status
-- `gif` — Animated GIF
-- `animated` — Text with animation effects
+- `text`:Text-only status
+- `image`:Image with optional caption
+- `video`:Video status
+- `gif`:Animated GIF
+- `animated`:Text with animation effects
 
 ## Visibility Options
-- `public` — Everyone
-- `contacts` — Only contacts
-- `private` — Hidden
+- `public`:Everyone
+- `contacts`:Only contacts
+- `private`:Hidden
 
 ## How to Use
 

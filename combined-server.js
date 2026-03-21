@@ -110,7 +110,7 @@ class MCPMultiplexer {
     await this.rpcSend(server, 'initialize', {
       protocolVersion: '2024-11-05',
       capabilities: {},
-      clientInfo: { name: 'whatsapp-combined', version: '1.0.0' }
+      clientInfo: { name: 'whatsapp-combined', version: '1.1.0' }
     });
     this.notify(server, 'notifications/initialized', {});
     const resp = await this.rpcSend(server, 'tools/list', {});

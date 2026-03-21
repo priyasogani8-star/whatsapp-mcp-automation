@@ -19,8 +19,8 @@
 ### Step 1: Download the Files
 
 ```bash
-git clone https://github.com/priyasogani8-star/whatsapp-mcp-poll-voting-tool.git
-cd whatsapp-mcp-poll-voting-tool
+git clone https://github.com/priyasogani8-star/whatsapp-mcp-automation.git
+cd whatsapp-mcp-automation
 ```
 
 ### Step 2: Install Requirements
@@ -69,7 +69,7 @@ Add this:
   "mcpServers": {
     "whatsapp-polls": {
       "command": "node",
-      "args": ["path/to/whatsapp-mcp-poll-voting-tool/dist/index.js"],
+      "args": ["path/to/whatsapp-mcp-automation/combined-server.js"],
       "env": {
         "WHATSAPP_DATA_DIR": "~/.whatsapp-mcp",
         "DATABASE_URL": "sqlite:~/.whatsapp-mcp/polls.db"
@@ -109,7 +109,7 @@ Click "Add Server"
 Fill in:
 - **Name:** whatsapp-polls
 - **Command:** node
-- **Args:** ["path/to/dist/index.js"]
+- **Args:** ["path/to/whatsapp-mcp-automation/combined-server.js"]
 
 ### Step 5: Restart Cursor
 Close and reopen Cursor

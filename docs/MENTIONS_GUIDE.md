@@ -3,15 +3,15 @@
 Send targeted notifications in WhatsApp groups.
 
 ## Mention Types
-- `all` — Mentions everyone in the group
-- `role` — Mentions users assigned to a role
-- `specific` — Mentions specific user IDs
-- `admin` — Mentions group admins only
+- `all`:Mentions everyone in the group
+- `role`:Mentions users assigned to a role
+- `specific`:Mentions specific user IDs
+- `admin`:Mentions group admins only
 
 ## Notification Levels
-- `silent` — No sound
-- `normal` — Default notification
-- `high` — Priority notification
+- `silent`:No sound
+- `normal`:Default notification
+- `high`:Priority notification
 
 ## How to Use
 

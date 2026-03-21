@@ -56,10 +56,10 @@ echo   Next steps:
 echo  =====================================================
 echo.
 echo  1. Start the WhatsApp bridge:
-echo     Double-click whatsapp-bridge.exe
+echo     Double-click whatsapp-bridge-windows-x64.exe
 echo     (Scan the QR code with your phone the first time)
 echo.
-echo  2. Add this to your Claude settings (see README.md
+echo  2. Add this to your Claude settings (see README.md for the exact path):
 echo     for the exact config block to copy and paste):
 echo.
 echo     "whatsapp": {
