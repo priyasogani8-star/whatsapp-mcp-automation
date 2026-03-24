@@ -1,4 +1,5 @@
 import sqlite3
+import re
 from datetime import datetime
 from dataclasses import dataclass
 from typing import Optional, List, Tuple
@@ -6,6 +7,46 @@ import os.path
 import requests
 import json
 import audio
+
+def parse_datetime(ts: str) -> datetime:
+    """Parse a datetime string from the whatsmeow SQLite store.
+
+    whatsmeow (the Go WhatsApp library) stores timestamps in a format that
+    Python's datetime.fromisoformat() cannot handle directly:
+
+        '2026-03-24 17:20:38 +0530 IST'   ← India
+        '2026-03-24 17:20:38 +0000 UTC'   ← UTC
+        '2026-03-24 17:20:38 -0800 PST'   ← USA Pacific
+        '2026-03-24 17:20:38 +1000 AEST'  ← Australia
+        '2026-03-24 17:20:38 +0100 CET'   ← Europe Central
+
+    Two problems for fromisoformat():
+      1. The UTC offset uses no colon: +0530 instead of +05:30
+         (required by Python 3.7–3.10; Python 3.11+ allows both)
+      2. The trailing alphabetic abbreviation (IST, UTC, PST …)
+         is not part of the ISO-8601 spec and causes a ValueError.
+
+    This function normalises the string before parsing so the tool works
+    in any country without hardcoding any timezone name or offset.
+    """
+    if not ts:
+        raise ValueError("Empty timestamp string")
+
+    s = ts.strip()
+
+    # 1. Strip trailing alphabetic timezone abbreviation (2–5 uppercase letters,
+    #    optionally preceded by a space). Examples: IST, UTC, PST, AEST, CET.
+    s = re.sub(r'\s+[A-Z]{2,5}$', '', s)
+
+    # 2. Normalise ±HHMM  →  ±HH:MM  (insert colon if missing).
+    #    Matches a +/- followed by exactly 4 digits at the end of the string.
+    s = re.sub(r'([+-])(\d{2})(\d{2})$', r'\1\2:\3', s)
+
+    # 3. Remove the space between datetime and offset so fromisoformat() is happy.
+    #    '2026-03-24 17:20:38 +05:30'  →  '2026-03-24 17:20:38+05:30'
+    s = re.sub(r'\s+([+-]\d{2}:\d{2})$', r'\1', s)
+
+    return datetime.fromisoformat(s)
 
 MESSAGES_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'whatsapp-bridge', 'store', 'messages.db')
 WHATSAPP_API_BASE_URL = "http://localhost:8080/api"
@@ -147,7 +188,7 @@ def list_messages(
         # Add filters
         if after:
             try:
-                after = datetime.fromisoformat(after)
+                after = parse_datetime(after)
             except ValueError:
                 raise ValueError(f"Invalid date format for 'after': {after}. Please use ISO-8601 format.")
             
@@ -156,7 +197,7 @@ def list_messages(
 
         if before:
             try:
-                before = datetime.fromisoformat(before)
+                before = parse_datetime(before)
             except ValueError:
                 raise ValueError(f"Invalid date format for 'before': {before}. Please use ISO-8601 format.")
             
@@ -190,7 +231,7 @@ def list_messages(
         result = []
         for msg in messages:
             message = Message(
-                timestamp=datetime.fromisoformat(msg[0]),
+                timestamp=parse_datetime(msg[0]),
                 sender=msg[1],
                 chat_name=msg[2],
                 content=msg[3],
@@ -246,7 +287,7 @@ def get_message_context(
             raise ValueError(f"Message with ID {message_id} not found")
             
         target_message = Message(
-            timestamp=datetime.fromisoformat(msg_data[0]),
+            timestamp=parse_datetime(msg_data[0]),
             sender=msg_data[1],
             chat_name=msg_data[2],
             content=msg_data[3],
@@ -269,7 +310,7 @@ def get_message_context(
         before_messages = []
         for msg in cursor.fetchall():
             before_messages.append(Message(
-                timestamp=datetime.fromisoformat(msg[0]),
+                timestamp=parse_datetime(msg[0]),
                 sender=msg[1],
                 chat_name=msg[2],
                 content=msg[3],
@@ -292,7 +333,7 @@ def get_message_context(
         after_messages = []
         for msg in cursor.fetchall():
             after_messages.append(Message(
-                timestamp=datetime.fromisoformat(msg[0]),
+                timestamp=parse_datetime(msg[0]),
                 sender=msg[1],
                 chat_name=msg[2],
                 content=msg[3],
@@ -373,7 +414,7 @@ def list_chats(
             chat = Chat(
                 jid=chat_data[0],
                 name=chat_data[1],
-                last_message_time=datetime.fromisoformat(chat_data[2]) if chat_data[2] else None,
+                last_message_time=parse_datetime(chat_data[2]) if chat_data[2] else None,
                 last_message=chat_data[3],
                 last_sender=chat_data[4],
                 last_is_from_me=chat_data[5]
@@ -466,7 +507,7 @@ def get_contact_chats(jid: str, limit: int = 20, page: int = 0) -> List[Chat]:
             chat = Chat(
                 jid=chat_data[0],
                 name=chat_data[1],
-                last_message_time=datetime.fromisoformat(chat_data[2]) if chat_data[2] else None,
+                last_message_time=parse_datetime(chat_data[2]) if chat_data[2] else None,
                 last_message=chat_data[3],
                 last_sender=chat_data[4],
                 last_is_from_me=chat_data[5]
@@ -512,7 +553,7 @@ def get_last_interaction(jid: str) -> str:
             return None
             
         message = Message(
-            timestamp=datetime.fromisoformat(msg_data[0]),
+            timestamp=parse_datetime(msg_data[0]),
             sender=msg_data[1],
             chat_name=msg_data[2],
             content=msg_data[3],
@@ -566,7 +607,7 @@ def get_chat(chat_jid: str, include_last_message: bool = True) -> Optional[Chat]
         return Chat(
             jid=chat_data[0],
             name=chat_data[1],
-            last_message_time=datetime.fromisoformat(chat_data[2]) if chat_data[2] else None,
+            last_message_time=parse_datetime(chat_data[2]) if chat_data[2] else None,
             last_message=chat_data[3],
             last_sender=chat_data[4],
             last_is_from_me=chat_data[5]
@@ -609,7 +650,7 @@ def get_direct_chat_by_contact(sender_phone_number: str) -> Optional[Chat]:
         return Chat(
             jid=chat_data[0],
             name=chat_data[1],
-            last_message_time=datetime.fromisoformat(chat_data[2]) if chat_data[2] else None,
+            last_message_time=parse_datetime(chat_data[2]) if chat_data[2] else None,
             last_message=chat_data[3],
             last_sender=chat_data[4],
             last_is_from_me=chat_data[5]
