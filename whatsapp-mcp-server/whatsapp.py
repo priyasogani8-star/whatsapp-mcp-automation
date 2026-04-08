@@ -48,7 +48,7 @@ def parse_datetime(ts: str) -> datetime:
 
     return datetime.fromisoformat(s)
 
-MESSAGES_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'whatsapp-bridge', 'store', 'messages.db')
+MESSAGES_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'examplestore.db')
 WHATSAPP_API_BASE_URL = "http://localhost:8080/api"
 
 @dataclass
@@ -764,6 +764,94 @@ def send_audio_message(recipient: str, media_path: str) -> Tuple[bool, str]:
         return False, f"Error parsing response: {response.text}"
     except Exception as e:
         return False, f"Unexpected error: {str(e)}"
+
+def detect_interactive_messages(
+    chat_jid: str,
+    limit: int = 10
+) -> List[dict]:
+    """Scan recent messages in a chat for interactive/menu messages from a bot.
+
+    Looks for messages that contain numbered option lists, button-style prompts,
+    or structured menus — typical of n8n / Evolution API bots.
+
+    Returns a list of dicts with keys:
+        id, timestamp, sender, content, options (list of extracted option strings)
+    """
+    try:
+        conn = sqlite3.connect(MESSAGES_DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT id, timestamp, sender, content
+            FROM messages
+            WHERE chat_jid = ?
+              AND is_from_me = 0
+              AND (media_type IS NULL OR media_type = '')
+            ORDER BY timestamp DESC
+            LIMIT ?
+            """,
+            (chat_jid, limit)
+        )
+        rows = cursor.fetchall()
+    except sqlite3.Error as e:
+        return [{"error": f"Database error: {e}"}]
+    finally:
+        if 'conn' in locals():
+            conn.close()
+
+    import re
+    results = []
+    # Patterns that suggest an interactive/menu message:
+    # 1. Lines like "1. option", "1) option", "• option"
+    # 2. Messages containing "reply with" / "type" / "choose" / "select"
+    numbered_re = re.compile(r'^\s*(\d+)[.)]\s+(.+)', re.MULTILINE)
+    bullet_re   = re.compile(r'^\s*[•*-]\s+(.+)', re.MULTILINE)
+    prompt_re   = re.compile(
+        r'\b(reply\s+with|type|choose|select|pick|press|enter|send)\b',
+        re.IGNORECASE
+    )
+
+    for msg_id, ts, sender, content in rows:
+        if not content:
+            continue
+        numbered_matches = numbered_re.findall(content)
+        bullet_matches   = bullet_re.findall(content)
+        has_prompt       = bool(prompt_re.search(content))
+
+        options = []
+        if numbered_matches:
+            options = [m[1].strip() for m in numbered_matches]
+        elif bullet_matches:
+            options = [m.strip() for m in bullet_matches]
+
+        if options or has_prompt:
+            results.append({
+                "id": msg_id,
+                "timestamp": ts,
+                "sender": sender,
+                "content": content,
+                "options": options,
+                "has_prompt": has_prompt
+            })
+
+    return results
+
+
+def send_button_response(recipient: str, option_text: str) -> Tuple[bool, str]:
+    """Send a button/list option response to a WhatsApp chat.
+
+    WhatsApp interactive button responses are delivered as plain text messages
+    containing the chosen option text. This function makes that explicit.
+
+    Args:
+        recipient: Phone number with country code (no +/spaces) or JID
+        option_text: The button label or list option text to send as the response
+
+    Returns:
+        Tuple of (success: bool, status_message: str)
+    """
+    return send_message(recipient, option_text)
+
 
 def download_media(message_id: str, chat_jid: str) -> Optional[str]:
     """Download media from a message and return the local file path.

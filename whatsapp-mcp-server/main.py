@@ -12,7 +12,9 @@ from whatsapp import (
     send_message as whatsapp_send_message,
     send_file as whatsapp_send_file,
     send_audio_message as whatsapp_audio_voice_message,
-    download_media as whatsapp_download_media
+    download_media as whatsapp_download_media,
+    detect_interactive_messages as whatsapp_detect_interactive_messages,
+    send_button_response as whatsapp_send_button_response
 )
 
 # Initialize FastMCP server
@@ -245,6 +247,53 @@ def download_media(message_id: str, chat_jid: str) -> Dict[str, Any]:
             "success": False,
             "message": "Failed to download media"
         }
+
+@mcp.tool()
+def detect_interactive_messages(
+    chat_jid: str,
+    limit: int = 10
+) -> List[Dict[str, Any]]:
+    """Scan recent incoming messages in a chat for bot menus, numbered options, or button prompts.
+
+    Useful for MMR bot testing: call this after sending a trigger message to the bot,
+    then read the returned options list to know what to reply with.
+
+    Args:
+        chat_jid: The JID of the chat to scan (e.g. "919799980777@s.whatsapp.net")
+        limit: How many recent messages to check (default 10)
+
+    Returns:
+        List of interactive messages, each with:
+          id, timestamp, sender, content, options (extracted list items), has_prompt
+    """
+    return whatsapp_detect_interactive_messages(chat_jid, limit)
+
+
+@mcp.tool()
+def send_button_response(
+    recipient: str,
+    option_text: str
+) -> Dict[str, Any]:
+    """Send a button or list-option response to a WhatsApp chat.
+
+    WhatsApp interactive button/list responses are delivered as plain text containing
+    the chosen option. Use detect_interactive_messages first to find available options,
+    then call this with the option text you want to select.
+
+    Args:
+        recipient: Phone number with country code (no + or spaces), or a JID
+                   e.g. "919799980777" or "919799980777@s.whatsapp.net"
+        option_text: The exact button label or list option text to send
+
+    Returns:
+        A dictionary with success status and a status message
+    """
+    success, status_message = whatsapp_send_button_response(recipient, option_text)
+    return {
+        "success": success,
+        "message": status_message
+    }
+
 
 if __name__ == "__main__":
     # Initialize and run the server
