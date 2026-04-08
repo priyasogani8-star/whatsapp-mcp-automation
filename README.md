@@ -1,6 +1,6 @@
 # WhatsApp MCP Automation
 
-> **7 powerful WhatsApp tools for Claude, Cursor, and Windsurf, with features missing from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp)**
+> **32 powerful WhatsApp tools for Claude, Cursor, and Windsurf, with features missing from [lharries/whatsapp-mcp](https://github.com/lharries/whatsapp-mcp)**
 
 This is a **companion MCP tool package** that runs *alongside* `lharries/whatsapp-mcp`. It adds features that lharries doesn't support.
 
@@ -16,6 +16,8 @@ This is a **companion MCP tool package** that runs *alongside* `lharries/whatsap
 | Send messages | ✅ | ✅ included |
 | Send media/files | ✅ | ✅ included |
 | Download media | ✅ | ✅ included |
+| **Detect bot menus & interactive messages** | ❌ | ✅ |
+| **Send button/list-option responses** | ❌ | ✅ |
 | **Poll voting** (single and multiple-choice) | ❌ | ✅ |
 | **Animated reactions** (confetti, fireworks) | ⚠️ Partial | ✅ Enhanced |
 | **Sticker manager** (2026 packs) | ❌ | ✅ |
@@ -109,7 +111,7 @@ Save the file and restart Claude.
 
 In Claude, type: *"What WhatsApp tools do you have?"*
 
-Claude will list all 30 available tools. You are ready to go.
+Claude will list all 32 available tools. You are ready to go.
 
 ---
 
@@ -141,7 +143,23 @@ Go to Settings > MCP Servers > Add Server and fill in:
 
 ---
 
-## The 18 Extra Tools
+## The 20 Extra Tools
+
+### 🤖 Interactive Messages
+
+> Detect bot menus and respond to them — useful for chatbots, automated flows, and n8n bots
+
+When a bot sends a numbered menu or button-style prompt, use `detect_interactive_messages` to read it and extract the available options. Then use `send_button_response` to pick an option — WhatsApp delivers button responses as plain text at the protocol level for personal accounts.
+
+**Example flow:**
+
+1. Bot sends: *"Choose a property type:\n1. Flat\n2. Villa\n3. PG"*
+2. `detect_interactive_messages` returns: `options: ["Flat", "Villa", "PG"]`
+3. `send_button_response` with `option_text: "Flat"` → sends "Flat" to the bot
+
+Tools: `detect_interactive_messages` `send_button_response`
+
+---
 
 ### 🗳️ Polls
 
@@ -224,7 +242,7 @@ Your WhatsApp Phone
        |
 whatsapp-bridge-windows-x64.exe   (runs in background, handles the WhatsApp connection)
        |
-combined-server.js                (joins the two tool sets together, 30 tools total)
+combined-server.js                (joins the two tool sets together, 32 tools total)
        |
    Claude / Cursor / Windsurf
 ```
